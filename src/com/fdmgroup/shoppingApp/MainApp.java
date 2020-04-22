@@ -1,5 +1,11 @@
 package com.fdmgroup.shoppingApp;
 
+
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.Map;
+
+import com.fdmgroup.model.Fruit;
 import com.fdmgroup.model.ShoppingCart;
 
 public class MainApp {
@@ -7,20 +13,18 @@ public class MainApp {
 	public static void main(String[] args) {
 
 		ShoppingCart shoppingCart = new ShoppingCart();
-		Checkout checkout = new Checkout();
+		//Checkout checkout1 = new Checkout();
+		Checkout checkout = new Checkout(shoppingCart);
 		
-		shoppingCart.getShoppingCart().put("Orange", 2);
-		shoppingCart.getShoppingCart().put("Banana", 4);
-		shoppingCart.getShoppingCart().put("Apple", 5);
-		shoppingCart.getShoppingCart().put("Lemon", 1);
-		shoppingCart.getShoppingCart().put("Peach", 3);
+						
+		for(String fruit: shoppingCart.getShoppingCart()) {
+			
+			BigDecimal price = checkout.getPrice(fruit);
+			System.out.println(fruit +" "+price);
+			
+		}
 		
-		checkout.getPrice("Orange");
-		
-		System.out.println(checkout.getPrice("Orange"));
-		
-		
-		
+		System.out.println("Total Price: "+checkout.getTotalPrice(shoppingCart));
 		
 	}
 

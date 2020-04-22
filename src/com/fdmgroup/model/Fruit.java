@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public enum Fruit {
 	
-	APPLE("Apple", BigDecimal.valueOf(1.20)),
+	APPLE("Apple", BigDecimal.valueOf(5.20)),
 	BANANA("Banana", BigDecimal.valueOf(1.30)),
 	LEMON("Lemon", BigDecimal.valueOf(1.40)),
 	ORANGE("Orange", BigDecimal.valueOf(1.30)),
