@@ -7,56 +7,83 @@ import com.fdmgroup.model.Fruit;
 import com.fdmgroup.model.ShoppingCart;
 
 public class Checkout {
-	
+
 	ShoppingCart shoppingCart;
-	
+	int quantity;
+
 	public Checkout(ShoppingCart shoppingCart) {
 		super();
 		this.shoppingCart = shoppingCart;
-		
-		shoppingCart.getShoppingCart().add(Fruit.ORANGE.getName());
-		shoppingCart.getShoppingCart().add(Fruit.BANANA.getName());
-		shoppingCart.getShoppingCart().add(Fruit.LEMON.getName());
-		shoppingCart.getShoppingCart().add(Fruit.PEACH.getName());
-		shoppingCart.getShoppingCart().add(Fruit.APPLE.getName());
-		shoppingCart.getShoppingCart().add(Fruit.APPLE.getName());
-		shoppingCart.getShoppingCart().add(Fruit.APPLE.getName());
+
 	}
 
 	public Checkout() {
 		super();
 	}
-	
+
+	public void addFruitToCart(String fruit) {
+
+		if (shoppingCart.getShoppingCart().containsKey(fruit)) {
+
+			quantity = shoppingCart.getShoppingCart().get(fruit);
+			quantity++;
+			shoppingCart.getShoppingCart().put(Fruit.getFruit(fruit).getName(), quantity);
+
+		} else {
+
+			shoppingCart.getShoppingCart().put(Fruit.getFruit(fruit).getName(), 1);
+		}
+
+	}
 
 	public void doValidations(ShoppingCart cart) {
-		
-		if(cart.getShoppingCart() == null) {
-			
+
+		if (cart.getShoppingCart() == null) {
+
 			System.out.println("Shopping Cart is Empty");
 			throw new NullPointerException("The Basket is empty");
-		}	
+		}
 	}
-	
+
 	public BigDecimal getPrice(String fruitName) {
-		
+
 		BigDecimal price = Fruit.getFruit(fruitName).getPrice().setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		return price;
 	}
-	
+
 	public BigDecimal getTotalPrice(ShoppingCart fruits) {
-		
+
 		doValidations(fruits);
-		Fruit.getFruit("Orange").getPrice();
 		BigDecimal totalPrice = BigDecimal.valueOf(0);
-		
-		for(String fruit: shoppingCart.getShoppingCart()) {
+
+		for (Map.Entry<String, Integer> fruit : shoppingCart.getShoppingCart().entrySet()) {
+
+			BigDecimal unit_price;
+			BigDecimal unit_price_for_qty;
+			BigDecimal quantity =  BigDecimal.valueOf(fruit.getValue());
 			
-			BigDecimal price; 			
-			price = Fruit.getFruit(fruit).getPrice(); 
-			totalPrice = totalPrice.add(price).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+			unit_price = Fruit.getFruit(fruit.getKey()).getPrice();
+			unit_price_for_qty = quantity.multiply(unit_price);
+			
+			totalPrice = totalPrice.add(unit_price_for_qty).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		}
-		
+
 		return totalPrice;
+	}
+
+	public void generateBill() {
+
+		System.out.println("Item |"+ "Unit Price | " + "Quantity");
+		System.out.println("------------------------");
+		for (Map.Entry<String, Integer> fruit : shoppingCart.getShoppingCart().entrySet()) {
+
+			BigDecimal price = getPrice(fruit.getKey());
+			System.out.println(fruit.getKey() + " | " + price + " | " + fruit.getValue());
+
+		}
+
+		System.out.println("------------------");
+		System.out.println("Total Price: " + getTotalPrice(shoppingCart));
 	}
 
 }

@@ -1,27 +1,26 @@
 package com.fdmgroup.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class ShoppingCart {
 	
-	List<String> shoppingCart;
+	HashMap<String, Integer> shoppingCart;
 
 	public ShoppingCart() {
 		super();
-		shoppingCart = new ArrayList<String>();
+		shoppingCart = new HashMap<String, Integer>();
 	}
 
-	public ShoppingCart(List<String> shoppingCart) {
+	public ShoppingCart(HashMap<String, Integer> shoppingCart) {
 		super();
 		this.shoppingCart = shoppingCart;
 	}
 
-	public List<String> getShoppingCart() {
+	public HashMap<String, Integer> getShoppingCart() {
 		return shoppingCart;
 	}
 
-	public void setShoppingCart(List<String> shoppingCart) {
+	public void setShoppingCart(HashMap<String, Integer> shoppingCart) {
 		this.shoppingCart = shoppingCart;
 	}
 	

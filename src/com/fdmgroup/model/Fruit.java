@@ -34,13 +34,13 @@ public enum Fruit {
 		this.price = price;
 	}
 	
-	   public static Fruit getFruit(String name) {
-	        for (Fruit fruit : Fruit.values()) {
-	            if (fruit.name.equalsIgnoreCase(name)) {
-	                return fruit;
-	            }
-	        }
-	       throw new IllegalArgumentException("No Fruit with name " + name + " found");
-	    }
+   public static Fruit getFruit(String name) {
+        for (Fruit fruit : Fruit.values()) {
+            if (fruit.name.equalsIgnoreCase(name)) {
+                return fruit;
+            }
+        }
+       throw new IllegalArgumentException("No Fruit with name " + name + " found");
+    }
 	
 }
