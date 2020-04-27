@@ -25,7 +25,7 @@ public class MainApp {
 		checkout.addFruitToCart("Apple");
 		checkout.addFruitToCart("Apple");
 		
-		checkout.generateBill();
+		checkout.generateBill(shoppingCart);
 		
 	}
 

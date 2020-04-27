@@ -2,7 +2,9 @@ package com.fdmgroup.shoppingApp;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.logging.Logger;
 
+import com.fdmgroup.exception.EmptyBasketException;
 import com.fdmgroup.model.Fruit;
 import com.fdmgroup.model.ShoppingCart;
 
@@ -38,10 +40,9 @@ public class Checkout {
 
 	public void doValidations(ShoppingCart cart) {
 
-		if (cart.getShoppingCart() == null) {
+		if (cart.getShoppingCart().isEmpty()) {
 
-			System.out.println("Shopping Cart is Empty");
-			throw new NullPointerException("The Basket is empty");
+			throw new EmptyBasketException("The Basket is empty");
 		}
 	}
 
@@ -71,8 +72,9 @@ public class Checkout {
 		return totalPrice;
 	}
 
-	public void generateBill() {
+	public void generateBill(ShoppingCart cart) {
 
+		doValidations(cart);
 		System.out.println("Item |"+ "Unit Price | " + "Quantity");
 		System.out.println("------------------------");
 		for (Map.Entry<String, Integer> fruit : shoppingCart.getShoppingCart().entrySet()) {
